@@ -1,9 +1,11 @@
 package hu.flowacademy.test.foodorder.Service;
 
+import hu.flowacademy.test.foodorder.Exception.ValidationException;
 import hu.flowacademy.test.foodorder.Model.User;
 import hu.flowacademy.test.foodorder.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -22,7 +24,11 @@ public class UserService {
     }
 
     public User save(User user) {
-        return this.userRepository.save(user);
+        if (user.getUsername().equals("") || user.getAddress().equals("") || user.getFullname().equals("")) {
+            throw new ValidationException("Fill everything!");
+        } else {
+            return this.userRepository.save(user);
+        }
     }
 
     public void delete(String id) {
@@ -30,6 +36,9 @@ public class UserService {
     }
 
     public User update(User user) {
+        if (user.getUsername().equals("") || user.getAddress().equals("") || user.getFullname().equals("")) {
+            throw new ValidationException("Fill everything!");
+        } else {
             if (this.userRepository.findById(user.getUsername()).isPresent()) {
                 User repoUser = this.userRepository.findById(user.getUsername()).get();
                 repoUser.setAddress(user.getAddress());
@@ -37,5 +46,6 @@ public class UserService {
                 return repoUser;
             }
             return this.userRepository.save(user);
+        }
     }
 }

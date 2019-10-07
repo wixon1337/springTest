@@ -18,6 +18,12 @@ public class User {
     @Column
     private String address;
 
+    public User(String username, String fullname, String address) {
+        this.username = username;
+        this.fullname = fullname;
+        this.address = address;
+    }
+
     public String getUsername() {
         return username;
     }

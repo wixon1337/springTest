@@ -22,6 +22,12 @@ public class Cart {
     @ManyToMany(cascade = CascadeType.ALL)
     private Food[] foods;
 
+    public Cart(User user, Food[] foods) {
+        this.user = user;
+        this.orderDate = LocalDateTime.now();
+        this.foods = foods;
+    }
+
     public Long getId() {
         return id;
     }

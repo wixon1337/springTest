@@ -21,6 +21,12 @@ public class Food {
     @ManyToMany(mappedBy = "foods")
     private Cart[] carts;
 
+    public Food(String name, String parts, Cart[] carts) {
+        this.name = name;
+        this.parts = parts;
+        this.carts = carts;
+    }
+
     public Long getId() {
         return id;
     }
